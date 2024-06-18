@@ -43,7 +43,7 @@ The Car Rental Management System is a web application designed to manage car ren
 1. **Clone the repository:**
     ```sh
     git clone https://github.com/yourusername/Bramas-Enterprises.git
-    cd car-rental-system
+    cd Bramas-Enterprises
     ```
 
 2. **Create a virtual environment:**
@@ -80,4 +80,3 @@ The Car Rental Management System is a web application designed to manage car ren
 - **Register** as a new user or **login** with an existing account.
 - **Browse** available cars for rent.
 - **Book** a car and manage your bookings.
-- **Admin** can add new cars, manage users, and view booking details through the admin dashboard.
