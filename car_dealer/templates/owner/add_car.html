@@ -1,0 +1,80 @@
+{% extends 'owner/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><strong>CarQuest Owner Portal:</strong> {{ user.username }}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'order_list' %}">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manage' %}">Vehicles</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron mt-5">
+        <h1 class="display-4 text-center">Add a New Vehicle</h1>
+        <p class="lead text-center">Fill in the details below to list your vehicle on the platform.</p>
+        <hr class="my-4">
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <form class="mx-auto" style="max-width: 400px;" action="{% url 'add_car' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="mb-3">
+                    <label for="make" class="form-label">Car Make</label>
+                    {{ form.make.errors }}
+                    {{ form.make }}
+                </div>
+                <div class="mb-3">
+                    <label for="model" class="form-label">Car Model</label>
+                    {{ form.model.errors }}
+                    {{ form.model }}
+                </div>
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Photo</label>
+                    {{ form.photo.errors }}
+                    {{ form.photo }}
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    {{ form.city.errors }}
+                    {{ form.city }}
+                </div>
+                <div class="mb-3">
+                    <label for="pincode" class="form-label">Pincode</label>
+                    {{ form.pincode.errors }}
+                    {{ form.pincode }}
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    {{ form.description.errors }}
+                    {{ form.description }}
+                </div>
+                <div class="mb-3">
+                    <label for="capacity" class="form-label">Capacity (Seats)</label>
+                    {{ form.capacity.errors }}
+                    {{ form.capacity }}
+                </div>
+                <div class="d-grid">
+                    <input type="submit" value="Add Vehicle" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/car.jpg' %}" class="img-fluid" alt="Car Image">
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+    </div>
+</div>
+{% endblock %}

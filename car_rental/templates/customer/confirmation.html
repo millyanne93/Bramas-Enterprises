@@ -1,0 +1,42 @@
+{% extends 'customer/base.html' %}
+
+{% block title %}
+    Booking Confirmation
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>Customer Dashboard: {{ user.username }}</div>
+                <div>
+                    <a class="btn btn-teal me-2" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-teal me-2" href="{% url 'manage' %}">Manage</a>
+                    <a class="btn btn-teal" href="{% url 'search' %}">Search Cars</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Confirmation</h5>
+                    <p class="card-text">Car: {{ car.car_name }}</p>
+                    <p class="card-text">Price per day: ${{ cost_per_day }}</p>
+                    <form action="{% url 'confirmed_booking' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="days">Number of days:</label>
+                            <input type="text" class="form-control" id="days" name="days" placeholder="Enter number of days" required>
+                        </div>
+                        <input type="hidden" name="id" value="{{ car.id }}">
+                        <button type="submit" class="btn btn-primary">Confirm My Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

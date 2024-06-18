@@ -1,0 +1,15 @@
+{% extends 'owner/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger text-center">
+                <h4 class="mb-3">SORRY</h4>
+                <p>Wrong credentials!</p>
+                <p>Go back to <a href="{% url 'login' %}">Login Page</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

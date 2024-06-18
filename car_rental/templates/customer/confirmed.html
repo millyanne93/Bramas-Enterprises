@@ -1,0 +1,38 @@
+{% extends 'customer/base.html' %}
+
+{% block title %}
+    Order Confirmed
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>Customer Dashboard: {{ user.username }}</div>
+                <div>
+                    <a class="btn btn-teal me-2" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-teal me-2" href="{% url 'manage' %}">Manage</a>
+                    <a class="btn btn-teal" href="{% url 'search' %}">Search Cars</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Booking Confirmed</h5>
+                    <p class="card-text">Your vehicle booking has been processed!</p>
+                    <p class="card-text">Total Rent: ${{ order.rent }}</p>
+                    <p class="card-text">Vehicle: {{ order.car.car_name }}</p>
+                    <p class="card-text">Duration: {{ order.days }} days</p>
+                    <p class="card-text">Car Dealer: {{ order.car_dealer.car_dealer.first_name }} {{ order.car_dealer.car_dealer.last_name }}</p>
+                    <p class="card-text">Car Dealer's Contact: {{ order.car_dealer.mobile }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

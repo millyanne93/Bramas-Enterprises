@@ -1,0 +1,300 @@
+/* styles.css */
+
+/* General styles */
+body {
+    font-family: Arial, Helvetica,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header styles */
+header {
+    background-color: #008080;
+    color: white;
+    padding: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Hero section styles */
+#hero {
+    background-image: url('background.jpg'); /* Replace 'background.jpg' with your image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    background-color: #008080;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #008080;
+}
+
+/* Feature section styles */
+#features {
+    padding: 50px 0;
+    text-align: center;
+}
+
+#features ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#features ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Testimonials section styles */
+#testimonials {
+    background-color: #f7f7f7;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.testimonial-box {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 400px;
+    text-align: left;
+
+.testimonial {
+    margin-bottom: 30px;
+}
+
+.testimonial blockquote {
+    font-style: italic;
+    margin: 0 0 10px;
+}
+
+.testimonial cite {
+    font-weight: bold;
+    display: block;
+    text-align: right;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Contact section styles */
+#contact {
+    padding: 50px 0;
+    text-align: center;
+}
+
+#contact form {
+    margin-top: 20px;
+}
+
+#contact form input,
+#contact form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#contact form input[type="submit"] {
+    background-color: #008080;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+#contact form input[type="submit"]:hover {
+    background-color: #3D1F61; 
+}
+
+.footer-content {
+    background-color: #008080;
+    color: black;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+.footer-column h3 {
+    font-size: 16px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Adjust margin as needed */
+}
+.footer-column p {                               
+    font-size: 14px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Adjust margin as needed */
+}
+
+.booking-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+} 
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.error-message {
+    color: red;
+}
+
+.btn-primary {
+    background-color: #008080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #3D1F61; /* Darker shade for hover effect */
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.profile-container h1 {
+    text-align: center;
+}
+
+.profile-form {
+    margin-bottom: 20px;
+}
+
+.profile-form button {
+    display: block;
+    width: 100%;
+    background-color: #008080;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.profile-booking-history {
+    display: block;
+    text-align: center;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.booking-history {
+    margin-top: 20px;
+}
+
+.booking-history h2 {
+    margin-bottom: 10px;
+}
+
+.booking-history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.booking-history li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.margin-box {
+    margin: 20px; /* Adjust the margin size as needed */
+    padding: 20px; /* Adjust the padding size as needed */
+    border: 1px solid #ccc; /* Add border for the box */
+    border-radius: 5px; /* Optional: Add rounded corners */
+}
+.nav-item .active {
+    font-weight: bold;
+    color:  #ffd700; /* Bootstrap primary color */
+}
+
+.btn-teal {
+    background-color: teal;
+    color: white;
+}
+
+/* Additional custom styling if needed */
+.btn-teal:hover {
+    background-color: darkcyan;
+}
+
+/* Custom form and input styles */
+.custom-form-label {
+    display: block;
+    font-weight: bold;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-container {
+    width: 80%;
+    margin: 0 auto;
+}

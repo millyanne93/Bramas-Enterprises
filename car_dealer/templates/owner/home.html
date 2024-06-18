@@ -1,0 +1,65 @@
+{% extends 'owner/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><strong>CarQuest Owner Portal:</strong> {{ user.username }}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'booking_list' %}">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manage' %}">Vehicles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_car' %}">Add Vehicle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron mt-5">
+        <h1 class="display-4 text-center">Welcome to Your CarQuest Owner Portal!</h1>
+        <p class="lead text-center">Easily manage your vehicle listings, track orders, and connect with potential renters.</p>
+        <hr class="my-4">
+        <p class="ter">Maximize your earnings by listing icle on our platform. It’s simple, fast, and secure.</p>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2>What Our Customers Say</h2>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"This platform is fantastic! I rented out my car quickly and the process was seamless."</p>
+                        <p class="text-muted">- John D.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"Great experience! The customer service was excellent and I had no issues at all."</p>
+                        <p class="text-muted">- Sarah K.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"Highly recommend this service to anyone looking to rent out their vehicle."</p>
+                        <p class="text-muted">- Michael B.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+    </div>
+</div>
+{% endblock %}

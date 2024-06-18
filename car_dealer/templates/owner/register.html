@@ -1,0 +1,56 @@
+{%extends 'owner/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-teal" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-teal ml-2" href="/">Home</a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center" style="height:1000px;">
+        <div>
+            <h2 class="text-center">Registration Form</h2>
+            <form class="mx-auto" style="max-width: 400px;" action="{% url 'registration' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" id="firstname" name="firstname" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="text" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_info" class="form-label">Contact Info</label>
+                    <input type="text" id="contact_info" name="contact_info" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" id="city" name="city" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile</label>
+                    <input type="text" id="mobile" name="mobile" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pincode" class="form-label">Pincode</label>
+                    <input type="text" id="pincode" name="pincode" class="form-control" required>
+                </div>
+                <div class="d-grid">
+                    <input type="submit" value="Register" class="btn btn-teal">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

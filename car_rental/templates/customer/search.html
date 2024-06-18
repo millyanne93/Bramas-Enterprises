@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Search Cars
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Search for Cars</h2>
+            <form action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="city" class="custom-form-label">Enter City Name:</label>
+                    <input type="text" id="city" name="city" class="form-control" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Search Car</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

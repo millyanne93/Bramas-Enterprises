@@ -1,0 +1,151 @@
+/* styles.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header styles */
+header {
+    background-color: #004d98; /* Adjust this color to match your brand */
+    color: white;
+    padding: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Hero section styles */
+#hero {
+    background-image: url('background.jpg'); /* Replace 'background.jpg' with your image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    background-color: #ff9800; /* Adjust this color to match your brand */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #e65100; /* Darker shade for hover effect */
+}
+
+/* Feature section styles */
+#features {
+    padding: 50px 0;
+    text-align: center;
+}
+
+#features ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#features ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Testimonials section styles */
+#testimonials {
+    background-color: #f7f7f7;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.testimonial {
+    margin-bottom: 30px;
+}
+
+.testimonial blockquote {
+    font-style: italic;
+}
+
+.testimonial cite {
+    font-weight: bold;
+}
+
+/* Contact section styles */
+#contact {
+    padding: 50px 0;
+    text-align: center;
+}
+
+#contact form {
+    margin-top: 20px;
+}
+
+#contact form input,
+#contact form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#contact form input[type="submit"] {
+    background-color: #004d98; /* Adjust this color to match your brand */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#contact form input[type="submit"]:hover {
+    background-color: #003366; /* Darker shade for hover effect */
+}
+
+.footer-content {
+    background-color: navy;
+    color: white;
+    height: 80px; /* Adjust height as needed */
+}
+
+.footer-content .container {
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.footer-content h3 {
+    font-size: 16px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Adjust margin as needed */
+
+}
+.footer-content p {
+    font-size: 14px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Adjust margin as needed */
+}

@@ -1,0 +1,59 @@
+{% extends 'owner/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><strong>CarQuest Owner Portal:</strong> {{ user.username }}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'booking_list' %}">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manage' %}">Vehicles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_car' %}">Add Vehicle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h3 class="text-center mt-5"><b>Vehicle's Booking List</b></h3>
+    <div class="table-responsive mt-3">
+        <table class="table table-striped table-bordered text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Photo</th>
+                    <th>Rental Amount</th>
+                    <th>Days</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.vehicle.car_name }}</td>
+                    <td>
+                        <img src="{{ booking.vehicle.photo.url }}" alt="{{ booking.vehicle.car_name }}" class="img-fluid" style="max-width: 100px;">
+                    </td>
+                    <td>${{ booking.rent }}</td>
+                    <td>{{ booking.days }}</td>
+                    <td>
+                        <form action="{% url 'complete_booking' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ booking.id }}">
+                            <button type="submit" class="btn btn-success">Complete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

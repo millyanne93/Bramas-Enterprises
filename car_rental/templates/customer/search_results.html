@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>Customer Dashboard: {{ user.username }}</div>
+                <div>
+                    <a class="btn btn-teal me-2" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-teal me-2" href="{% url 'manage' %}">Manage</a>
+                    <a class="btn btn-teal" href="{% url 'search' %}">Search Cars</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-center mb-4"><b>Search Results</b></h3>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Car</th>
+                    <th>Capacity</th>
+                    <th>Description</th>
+                    <th>Pincode</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars_list %}
+                <tr>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.capacity }}</td>
+                    <td>{{ car.description }}</td>
+                    <td>{{ car.pincode }}</td>
+                    <td>
+
+                        <form action="{% url 'rent' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ car.id }}">
+                            <button type="submit" class="btn btn-success">Book</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

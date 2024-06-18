@@ -1,0 +1,126 @@
+{% extends "customer/base.html" %}
+
+
+{% block title %}
+    CarQuest - Home
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+      <div>Customer Dashboard: {{ user.username }}</div>
+      <div>
+          <a class="btn btn-teal me-2" href="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-teal me-2" href="{% url 'manage' %}">Manage</a>
+          <a class="btn btn-teal" href="{% url 'search' %}">Search Cars</a>
+      </div>
+  </div>
+  <div class="margin-box"> 
+    <!-- Hero Section -->
+    <section class="hero text-center py-5">
+        <div class="hero-content">
+            <h1>Welcome to CarQuest</h1>
+            <p>Discover the easiest way to rent a car online with CarQuest. Find your perfect rental vehicle quickly and conveniently, with a wide selection of cars available for every need and budget.</p>
+            <a href="#features" class="btn btn-primary">Explore More</a>
+        </div>
+    </section>
+    <!-- Key Features Section -->
+    <section id="features" class="features py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Why CarQuest?</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-car fa-3x mb-3"></i>
+                        <h3>Wide Range of Vehicles</h3>
+                        <p>From economy cars to luxury vehicles, we have a wide selection to meet all your needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-dollar-sign fa-3x mb-3"></i>
+                        <h3>Affordable Pricing</h3>
+                        <p>Competitive pricing and great deals to fit your budget.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-headset fa-3x mb-3"></i>
+                        <h3>24/7 Customer Support</h3>
+                        <p>Our team is available around the clock to assist you with your rental needs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-map-marker-alt fa-3x mb-3"></i>
+                        <h3>Convenient Locations</h3>
+                        <p>Pick up and drop off at multiple convenient locations across the city.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-sync-alt fa-3x mb-3"></i>
+                        <h3>Flexible Rentals</h3>
+                        <p>Flexible rental options to suit your schedule, whether you need a car for a day, a week, or longer.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box text-center">
+                        <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                        <h3>Safe and Secure</h3>
+                        <p>All vehicles are thoroughly sanitized and maintained for your safety and peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="services mt-5 text-center">
+        <div class="container">
+            <h2 class="mb-4"> Our Services</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="service-box">
+                        <a href="#">Car Rental</a>
+                        <p>Wide selection of rental cars to meet your needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="service-box">
+                         <a href="#">Airport Transfer</a>
+                         <p>Convenient airport transfer servict you to and from the airport on time.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                   <div class="service-box">
+                       <a href="#">Chauffeur Service</a>
+                       <p>Professional chauffeur services for a comfortable and stylish ride.</p>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials mt-5">
+        <h2>Testimonials</h2>
+        <div class="testimonial-box">
+            <div class="testimonial">
+                <blockquote>"I recently rented a car from CarQuest and was thoroughly impressed with the quality of service. The booking process was seamless, the car was in excellent condition, and the staff was friendly and helpful. I highly recommend CarQuest to anyone in need of reliable transportation."</blockquote>
+                <cite>- John Andrew</cite>
+            </div>
+        </div>
+        <div class="testimonial-box">
+            <div class="testimonial">
+                <blockquote>"I've been using CarQuest for all my car rentaley never disappoint. Whether it's for business trips or family s, I can always count on them to provide top-notch service at affordable prices. Thanks for making my travels ree!"</blockquote>
+                <cite>- Jane Smith</cite>
+            </div>
+        </div>
+    </section>
+    <!-- Call-to-Action Section -->
+    <section class="cta mt-5">
+        <h2>Ready to Get Started?</h2>
+        <p>Join thousands of satisfied customers today!</p>
+        <a href="{% url 'register' %}" class="btn btn-primary">Sign Up Now</a>
+    </section>
+{% endblock %}
