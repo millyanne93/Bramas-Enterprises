@@ -1,0 +1,16 @@
+{% extends "owner/base.html" %}
+
+{% block title %}Registration Error{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-danger">
+        <h4>Registration Failed</h4>
+        <p>This username or email already exists.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary mt-3">
+            Try Again
+        </a>
+    </div>
+</div>
+{% endblock %}
+

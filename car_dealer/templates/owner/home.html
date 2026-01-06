@@ -1,65 +1,572 @@
-{% extends 'owner/base.html' %}
-{% block content %}
+{% extends 'owner/base.html' %} 
+{% block title %} CarQuest - Owner Portal {% endblock %}
+{% block content %} 
 {% load static %}
 
-<div class="container mt-5">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><strong>CarQuest Owner Portal:</strong> {{ user.username }}</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'booking_list' %}">Bookings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manage' %}">Vehicles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_car' %}">Add Vehicle</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="jumbotron mt-5">
-        <h1 class="display-4 text-center">Welcome to Your CarQuest Owner Portal!</h1>
-        <p class="lead text-center">Easily manage your vehicle listings, track orders, and connect with potential renters.</p>
-        <hr class="my-4">
-        <p class="ter">Maximize your earnings by listing icle on our platform. It’s simple, fast, and secure.</p>
-    </div>
+<style>
+/* Modern Color Palette */
+:root {
+  --primary-color: #5C2D91;
+  --primary-dark: #3D1F61;
+  --secondary-color: #20B2AA;
+  --accent-color: #FFD700;
+  --text-dark: #333;
+  --text-light: #666;
+  --bg-light: #f8f9fa;
+}
 
-    <div class="text-center mt-5">
-        <h2>What Our Customers Say</h2>
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"This platform is fantastic! I rented out my car quickly and the process was seamless."</p>
-                        <p class="text-muted">- John D.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"Great experience! The customer service was excellent and I had no issues at all."</p>
-                        <p class="text-muted">- Sarah K.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"Highly recommend this service to anyone looking to rent out their vehicle."</p>
-                        <p class="text-muted">- Michael B.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-center mt-3">
-        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
-    </div>
+/* Dashboard Header */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(92, 45, 145, 0.3);
+  animation: slideDown 0.6s ease-out;
+}
+.dashboard-header .username {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.dashboard-header .navbar-nav {
+  flex-direction: row;
+  gap: 1rem;
+}
+.dashboard-header .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.dashboard-header .nav-link:hover {
+  color: white !important;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* Hero Section - Enhanced for Owners */
+.hero {
+  background: linear-gradient(135deg, rgba(92, 45, 145, 0.95) 0%, rgba(32, 178, 170, 0.9) 100%), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1600') center/cover;
+  padding: 6rem 2rem !important;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: fadeIn 1s ease-out;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: slideUp 0.8s ease-out;
+}
+.hero p {
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.95);
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+  animation: slideUp 1s ease-out;
+}
+.hero .lead {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.hero hr.my-4 {
+  border-color: rgba(255,255,255,0.2);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* Owner Services Section */
+.owner-services {
+  padding: 4rem 0;
+}
+.owner-services h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+.owner-services h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+.service-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+.service-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(92, 45, 145, 0.2);
+}
+.service-card i {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  transition: all 0.4s ease;
+}
+.service-card:hover i {
+  transform: scale(1.2) rotate(5deg);
+  color: var(--secondary-color);
+}
+.service-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+.service-card p {
+  color: var(--text-light);
+  line-height: 1.8;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.service-card .btn {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.service-card:hover .btn {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(92, 45, 145, 0.3);
+}
+
+/* Quick Stats Section */
+.stats-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  margin: 3rem 0;
+}
+.stats-section h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.stat-box {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  height: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.stat-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(92, 45, 145, 0.05) 0%, rgba(32, 178, 170, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.stat-box:hover::after {
+  opacity: 1;
+}
+.stat-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 4rem 2rem;
+}
+.testimonials h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.testimonial-box {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  position: relative;
+  transition: all 0.4s ease;
+  border-left: 5px solid var(--primary-color);
+}
+.testimonial-box:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 40px rgba(92, 45, 145, 0.2);
+  border-left-color: var(--secondary-color);
+}
+.testimonial-box::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 4rem;
+  color: rgba(92, 45, 145, 0.1);
+  font-family: Georgia, serif;
+}
+.testimonial-box .card-text {
+  font-style: italic;
+  color: var(--text-light);
+  line-height: 1.8;
+  font-size: 1.1rem;
+  margin: 0 0 1.5rem;
+  padding-left: 1rem;
+}
+.testimonial-box .text-muted {
+  font-weight: 700;
+  color: var(--primary-color);
+  font-style: normal;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+.testimonial-box .text-muted::before {
+  content: '⭐⭐⭐⭐⭐';
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Call-to-Action Section */
+.owner-cta {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  margin: 3rem 0;
+  box-shadow: 0 20px 60px rgba(92, 45, 145, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.owner-cta::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  top: -250px;
+  right: -250px;
+  animation: float 6s ease-in-out infinite;
+}
+.owner-cta h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+.owner-cta p {
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+.owner-cta .btn-secondary {
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+.owner-cta .btn-secondary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  background: var(--accent-color);
+  color: var(--text-dark);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Scroll Animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1.1rem; }
+  .owner-services h2, .stats-section h2, .testimonials h2, .owner-cta h2 { 
+    font-size: 2rem; 
+  }
+  .dashboard-header .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+</style>
+
+<!-- Dashboard Header -->
+<div class="dashboard-header d-flex justify-content-between align-items-center flex-wrap">
+  <div class="username">
+    <i class="fas fa-user-tie me-2"></i>
+    <strong>CarQuest Owner Portal:</strong> {{ user.username }}
+  </div>
+  <div class="navbar-nav">
+    <a class="nav-link" href="{% url 'logout' %}">
+      <i class="fas fa-sign-out-alt me-2"></i>Logout
+    </a>
+    <a class="nav-link" href="{% url 'booking_list' %}">
+      <i class="fas fa-calendar-check me-2"></i>Bookings
+    </a>
+    <a class="nav-link" href="{% url 'manage' %}">
+      <i class="fas fa-car me-2"></i>Vehicles
+    </a>
+    <a class="nav-link" href="{% url 'add_car' %}">
+      <i class="fas fa-plus-circle me-2"></i>Add Vehicle
+    </a>
+  </div>
 </div>
+
+<div class="margin-box">
+  <!-- Hero Section -->
+  <section class="hero text-center">
+    <div class="hero-content">
+      <h1>Welcome to Your CarQuest Owner Portal!</h1>
+      <p class="lead">Easily manage your vehicle listings, track orders, and connect with potential renters.</p>
+      <hr class="my-4">
+      <p class="text-light" style="font-size: 1.2rem;">
+        Maximize your earnings by listing your vehicle on our platform. It's simple, fast, and secure.
+      </p>
+    </div>
+  </section>
+
+  <!-- Owner Services Section -->
+  <section class="owner-services animate-on-scroll">
+    <div class="container">
+      <h2 class="text-center">Manage Your Business</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="service-card">
+            <i class="fas fa-car-alt"></i>
+            <h3>Vehicle Management</h3>
+            <p>Add, edit, and manage your vehicle listings with ease. Update availability, pricing, and descriptions instantly.</p>
+            <a href="{% url 'manage' %}" class="btn">Manage Vehicles</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="service-card">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Booking Management</h3>
+            <p>View and manage all booking requests. Accept, reject, or modify bookings from a single dashboard.</p>
+            <a href="{% url 'booking_list' %}" class="btn">View Bookings</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="service-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Revenue Analytics</h3>
+            <p>Track your earnings, view booking trends, and optimize your pricing strategy for maximum profit.</p>
+            <a href="#" class="btn">View Analytics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Stats Section -->
+  <section class="stats-section animate-on-scroll">
+    <div class="container">
+      <h2>Your Dashboard at a Glance</h2>
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="stat-box">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Active Listings</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="stat-box">
+            <div class="stat-number">45</div>
+            <div class="stat-label">Total Bookings</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="stat-box">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction Rate</div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="stat-box">
+            <div class="stat-number">$4,850</div>
+            <div class="stat-label">Monthly Revenue</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials animate-on-scroll">
+    <h2>What Our Owners Say</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial-box">
+          <p class="card-text">"This platform is fantastic! I rented out my car quickly and the process was seamless. The owner portal makes management so easy."</p>
+          <p class="text-muted">- John D.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-box">
+          <p class="card-text">"Great experience! The customer service was excellent and I had no issues at all. My earnings have increased by 40% since joining."</p>
+          <p class="text-muted">- Sarah K.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-box">
+          <p class="card-text">"Highly recommend this service to anyone looking to rent out their vehicle. The analytics dashboard helped me optimize my pricing."</p>
+          <p class="text-muted">- Michael B.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="owner-cta animate-on-scroll">
+    <h2>Ready to Grow Your Business?</h2>
+    <p>Start maximizing your vehicle's potential today with CarQuest's owner-friendly platform.</p>
+    <a href="{% url 'add_car' %}" class="btn btn-secondary">
+      <i class="fas fa-plus-circle me-2"></i>Add New Vehicle
+    </a>
+  </section>
+</div>
+
+<script>
+// Scroll Animation
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.observe(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+</script>
+
 {% endblock %}

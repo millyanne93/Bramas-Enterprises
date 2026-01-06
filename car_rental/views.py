@@ -11,6 +11,26 @@ from django.http import HttpResponseBadRequest
 from django.http import HttpResponse
 
 
+# Add this function to check user type in templates
+def get_user_type(request):
+    """Helper function to check if user is owner or customer"""
+    if request.user.is_authenticated:
+        try:
+            from car_dealer.models import CarDealer
+            CarDealer.objects.get(car_dealer=request.user)
+            return 'owner'
+        except CarDealer.DoesNotExist:
+            return 'customer'
+    return None
+
+# Then update your base view to pass user_type to template:
+def base(request):
+    user_type = get_user_type(request)
+    return render(request, 'customer/base.html', {
+        'name': 'Customer',
+        'user_type': user_type
+    })
+
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'customer/registration/login.html')
@@ -39,7 +59,7 @@ def register(request):
             profile.user = user
             profile.save()
             messages.success(request, 'Account created successfully')
-            return redirect('customer/registration/login.html')
+            return redirect('login')
     else:
         user_form = CustomUserCreationForm()
         profile_form = UserProfileForm()
@@ -71,17 +91,32 @@ def get_user_data(request):
         })
     return JsonResponse(data)
 
+# car_rental/views.py - Update the login function
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
-            login(request, user)
+            # CHECK IF USER IS A CAR DEALER (OWNER)
+            try:
+                # Check if this user has a CarDealer profile
+                from car_dealer.models import CarDealer
+                dealer = CarDealer.objects.get(car_dealer=user)
+                # User is an owner, redirect to owner portal
+                from django.contrib.auth import login as auth_login
+                auth_login(request, user)
+                return redirect('/car_dealer/home/')
+            except CarDealer.DoesNotExist:
+                # User is not an owner, proceed as customer
+                pass
+            
+            from django.contrib.auth import login as auth_login
+            auth_login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Invalid username or password')
-            return render(request, 'customer/registration/login.html')
+            return render(request, 'customer/registration/login.html', {'error': 'Invalid credentials'})
     else:
         return render(request, 'customer/registration/login.html')
 
