@@ -32,10 +32,7 @@ def base(request):
     })
 
 def index(request):
-    if not request.user.is_authenticated:
-        return render(request, 'customer/registration/login.html')
-    else:
-        return render(request, 'customer/home.html')
+    return render(request, 'customer/home.html')
 
 def home(request):
     return render(request, 'customer/home.html')

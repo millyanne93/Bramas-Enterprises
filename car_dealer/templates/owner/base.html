@@ -126,7 +126,6 @@
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <!-- Check if user is an owner -->
-                        {% load car_rental_tags %}  <!-- Create a custom tag or use context processor -->
         
                         {% if user_type == 'owner' or user.cardealer %}
                             <li class="nav-item">

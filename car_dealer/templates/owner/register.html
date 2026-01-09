@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-center align-items-center" style="height:1000px;">
         <div>
             <h2 class="text-center">Registration Form</h2>
-            <form class="mx-auto" style="max-width: 400px;" action="{% url 'registration' %}" method="POST">
+            <form class="mx-auto" style="max-width: 400px;" action="{% url 'owner_register' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="firstname" class="form-label">First Name</label>

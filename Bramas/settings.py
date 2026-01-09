@@ -133,7 +133,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Authentication settings
 LOGIN_REDIRECT_URL = '/car_rental/home/'
-
+LOGOUT_REDIRECT_URL = '/'  # Or '/car_rental/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 

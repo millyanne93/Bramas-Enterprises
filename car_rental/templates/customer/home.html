@@ -380,6 +380,142 @@
     background: var(--accent-color);
   }
 
+  /* Landing Page Hero (for guests) */
+  .landing-hero {
+    background: linear-gradient(135deg, rgba(92, 45, 145, 0.95) 0%, rgba(32, 178, 170, 0.9) 100%),
+                url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600') center/cover;
+    padding: 5rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    margin: 2rem 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease-out;
+  }
+
+  .landing-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .landing-hero p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landing-hero .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .landing-hero .btn-primary {
+    background: var(--accent-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+  }
+
+  .landing-hero .btn-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+  }
+
+  .landing-hero .btn-outline-light {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 3px solid white;
+    transition: all 0.3s ease;
+  }
+
+  .landing-hero .btn-outline-light:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-5px);
+  }
+
+  /* Quick Features (for guests) */
+  .quick-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(92, 45, 145, 0.2);
+  }
+
+  .feature-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+  }
+
+  .feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* Stats Section (for guests) */
+  .stats-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin: 3rem 0;
+    color: white;
+    text-align: center;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .stat-item h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-item p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
   /* Animations */
   @keyframes fadeIn {
     from {
@@ -444,30 +580,31 @@
 
   /* Responsive Design */
   @media (max-width: 768px) {
-    .hero h1 {
+    .hero h1, .landing-hero h1 {
       font-size: 2.5rem;
     }
-
-    .hero p {
+    .hero p, .landing-hero p {
       font-size: 1.1rem;
     }
-
     .features h2, .services h2, .testimonials h2, .cta h2 {
       font-size: 2rem;
     }
-
     .dashboard-header {
       flex-direction: column;
       text-align: center;
     }
-
     .dashboard-header .btn-group {
       margin-top: 1rem;
+    }
+    .stat-item h2 {
+      font-size: 2rem;
     }
   }
 </style>
 
-<!-- Dashboard Header -->
+<!-- THIS IS THE KEY PART: Conditional Content -->
+{% if user.is_authenticated %}
+<!-- ================= DASHBOARD FOR LOGGED-IN USERS ================= -->
 <div class="dashboard-header d-flex justify-content-between align-items-center flex-wrap">
     <div class="username">
       <i class="fas fa-user-circle me-2"></i>Welcome, {{ user.username }}
@@ -612,6 +749,67 @@
       </a>
   </section>
 </div>
+
+{% else %}
+<!-- ================= LANDING PAGE FOR GUESTS (NOT LOGGED IN) ================= -->
+<div class="landing-hero">
+    <h1><i class="fas fa-car mr-3"></i>Drive Your Dreams Today</h1>
+    <p>Premium car rentals made simple. Choose from our extensive fleet of vehicles and hit the road in minutes.</p>
+    <div class="cta-buttons">
+        <a href="{% url 'register' %}" class="btn btn-primary">
+            <i class="fas fa-user-plus mr-2"></i>Get Started Free
+        </a>
+        <a href="{% url 'about' %}" class="btn btn-outline-light">
+            <i class="fas fa-info-circle mr-2"></i>Learn More
+        </a>
+    </div>
+</div>
+
+<div class="quick-features">
+    <div class="feature-card">
+        <i class="fas fa-clock"></i>
+        <h3>Book in Minutes</h3>
+        <p>Quick and easy booking process with instant confirmation</p>
+    </div>
+    <div class="feature-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Safe & Secure</h3>
+        <p>All vehicles sanitized and maintained to highest standards</p>
+    </div>
+    <div class="feature-card">
+        <i class="fas fa-tags"></i>
+        <h3>Best Prices</h3>
+        <p>Competitive rates with transparent pricing, no hidden fees</p>
+    </div>
+    <div class="feature-card">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Round-the-clock customer service whenever you need us</p>
+    </div>
+</div>
+
+<div class="stats-section">
+    <h2>Trusted by Thousands</h2>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <h2>5000+</h2>
+            <p>Happy Customers</p>
+        </div>
+        <div class="stat-item">
+            <h2>200+</h2>
+            <p>Quality Vehicles</p>
+        </div>
+        <div class="stat-item">
+            <h2>50+</h2>
+            <p>Pickup Locations</p>
+        </div>
+        <div class="stat-item">
+            <h2>4.9★</h2>
+            <p>Customer Rating</p>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <script>
   // Scroll Animation
