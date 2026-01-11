@@ -24,27 +24,30 @@ def index(request):
 def home(request):
     return render(request, 'owner/home.html')
 
-# UPDATED: Owner Login Function
+# UPDATED owner_login function (replace lines 27-48)
 def owner_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             # CHECK IF USER IS ACTUALLY A CAR DEALER
             try:
                 dealer = CarDealer.objects.get(car_dealer=user)
                 # User is a car dealer, log them in
                 login(request, user)
+                messages.success(request, f'Welcome back, {user.first_name}!')
                 return redirect('home')  # Owner home page
             except CarDealer.DoesNotExist:
                 # User is not a car dealer, redirect to customer portal
                 messages.error(request, 'This account is not registered as a car dealer. Please login as a customer.')
                 return redirect('/car_rental/')
         else:
-            return render(request, 'owner/login_failed.html')
-    
+            # Invalid credentials - show error on same page
+            messages.error(request, 'Invalid username or password. Please try again.')
+            return render(request, 'owner/login.html')
+
     # GET request - show login form
     return render(request, 'owner/login.html')
 
@@ -63,24 +66,34 @@ def logout_view(request):
 def register(request):
     return render(request, 'owner/register.html')
 
-# UPDATED: Registration function
+# UPDATED registration function (replace lines 75-134)
 def registration(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        email = request.POST['email']
-        city = request.POST['city'].lower()
-        mobile = request.POST['mobile']
-        pincode = request.POST['pincode']
-        contact_info = request.POST.get('contact_info', '')
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '')
+        firstname = request.POST.get('firstname', '').strip()
+        lastname = request.POST.get('lastname', '').strip()
+        email = request.POST.get('email', '').strip()
+        city = request.POST.get('city', '').strip().lower()
+        mobile = request.POST.get('mobile', '').strip()
+        pincode = request.POST.get('pincode', '').strip()
+        contact_info = request.POST.get('contact_info', '').strip()
+
+        # Validation
+        if not all([username, password, firstname, lastname, email, city, mobile, pincode]):
+            messages.error(request, 'All fields are required.')
+            return redirect('owner_register')
 
         # 1. Check if username already exists
         if User.objects.filter(username=username).exists():
-            return render(request, 'owner/registration_error.html', 
-                         {'error': 'Username already exists. Please choose another.'})
-        
+            messages.error(request, 'Username already exists. Please choose another.')
+            return redirect('owner_register')
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already exists. Please use another email.')
+            return redirect('owner_register')
+
         # 2. Create user
         try:
             user = User.objects.create_user(
@@ -91,8 +104,8 @@ def registration(request):
                 last_name=lastname
             )
         except Exception as e:
-            return render(request, 'owner/registration_error.html', 
-                         {'error': f'Error creating user: {str(e)}'})
+            messages.error(request, f'Error creating user: {str(e)}')
+            return redirect('owner_register')
 
         # 3. Get or create location
         try:
@@ -107,8 +120,8 @@ def registration(request):
         except Exception as e:
             # Clean up user if location fails
             user.delete()
-            return render(request, 'owner/registration_error.html', 
-                         {'error': f'Error creating location: {str(e)}'})
+            messages.error(request, f'Error creating location: {str(e)}')
+            return redirect('owner_register')
 
         # 4. Create car dealer profile
         try:
@@ -123,19 +136,22 @@ def registration(request):
             user.delete()
             if created:  # Only delete location if we created it
                 location.delete()
-            return render(request, 'owner/registration_error.html', 
-                         {'error': f'Error creating car dealer profile: {str(e)}'})
+            messages.error(request, f'Error creating car dealer profile: {str(e)}')
+            return redirect('owner_register')
 
         # 5. Auto-login and redirect to owner portal
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
-        
-        return render(request, 'owner/registered.html')
+            messages.success(request, f'Registration successful! Welcome, {firstname}!')
+            return redirect('/car_dealer/home/')
+
+        # If auto-login fails (shouldn't happen), redirect to login
+        messages.success(request, 'Registration successful! Please login.')
+        return redirect('owner_login')
 
     # GET request - redirect to register form
-    return redirect('register')
+    return redirect('owner_register')
 
 # Add Vehicle
 @login_required
